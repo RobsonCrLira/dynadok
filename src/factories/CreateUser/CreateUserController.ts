@@ -1,5 +1,5 @@
 import { AddUserUseCase } from '../../data/usecase/User/AddUserUseCase';
-import { RabbitMQService } from '../../infra/queue/Messages';
+import { MessageService } from '../../infra/queue/Messages';
 import { badRequest, badRequestCustom, created, serverError } from '../../shared/http/httpHelpers';
 import { Controller } from '../../shared/interfaces/controller';
 import { HttpRequest, HttpResponse } from '../../shared/interfaces/http';
@@ -10,7 +10,7 @@ export class CreateUserController implements Controller {
 	constructor(
 		private readonly addUserUseCase: AddUserUseCase,
 		private readonly validate: Validation<ICreateUserSchema>,
-		private readonly messageProducer: RabbitMQService,
+		private readonly messageProducer: MessageService,
 	) {}
 
 	async handle(httpRequest: HttpRequest): Promise<HttpResponse> {

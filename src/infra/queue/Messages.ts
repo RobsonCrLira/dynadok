@@ -1,6 +1,6 @@
 import amqp from 'amqplib';
 
-export class RabbitMQService {
+export class MessageService {
 	private channel: amqp.Channel;
 
 	constructor(private readonly queue: string) {}

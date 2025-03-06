@@ -7,6 +7,24 @@ export class UserMongoDBRepository implements UserRepository {
 	constructor() {
 		this.prisma = prisma;
 	}
+	private mapUser(user: {
+		user_name: string;
+		user_email: string;
+		user_password_hash?: string;
+		user_id: string;
+		user_phone: string;
+		created_at: Date;
+		updated_at: Date;
+	}): IUser {
+		return {
+			name: user.user_name,
+			email: user.user_email,
+			phone: user.user_phone,
+			password_hash: user.user_password_hash,
+			user_id: user.user_id,
+		};
+	}
+
 	async updatePassword(user_id: string, password_hash: string): Promise<void> {
 		await this.prisma.users.update({
 			where: {
@@ -24,9 +42,12 @@ export class UserMongoDBRepository implements UserRepository {
 				user_id: true,
 				user_name: true,
 				user_email: true,
+				user_phone: true,
+				created_at: true,
+				updated_at: true,
 			},
 		});
-		return users;
+		return users.map((user) => this.mapUser(user));
 	}
 
 	async update(data: IUserUpdate): Promise<IUser | null> {
@@ -39,7 +60,7 @@ export class UserMongoDBRepository implements UserRepository {
 				user_email: data.email,
 			},
 		});
-		return update;
+		return this.mapUser(update);
 	}
 
 	async create(user: IUser): Promise<IUser> {
@@ -48,9 +69,10 @@ export class UserMongoDBRepository implements UserRepository {
 				user_name: user.name,
 				user_email: user.email,
 				user_password_hash: user.password_hash,
+				user_phone: user.phone,
 			},
 		});
-		return users;
+		return this.mapUser(users);
 	}
 
 	async findByEmail(email: string): Promise<IUser | null> {
@@ -58,16 +80,10 @@ export class UserMongoDBRepository implements UserRepository {
 			where: {
 				user_email: email,
 			},
-			select: {
-				user_id: true,
-				user_name: true,
-				user_email: true,
-				user_password_hash: true,
-			},
 		});
 		if (!user) return null;
 
-		return user;
+		return this.mapUser(user);
 	}
 
 	async findById(id: string): Promise<IUser | null> {
@@ -78,7 +94,7 @@ export class UserMongoDBRepository implements UserRepository {
 		});
 		if (!user) return null;
 
-		return user;
+		return this.mapUser(user);
 	}
 
 	async delete(id: string): Promise<void> {

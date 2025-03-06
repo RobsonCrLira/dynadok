@@ -13,6 +13,14 @@ model users {
     user_name          String
     user_email         String   @unique
     user_password_hash String
+    user_phone         String
     created_at         DateTime @default(now())
     updated_at         DateTime @updatedAt
+}
+
+model logs {
+    log_id          String   @id @default(auto()) @map("_id") @db.ObjectId
+    user_id         String
+    log_type        String
+    created_at      DateTime @default(now())
 }

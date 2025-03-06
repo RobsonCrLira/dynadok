@@ -6,6 +6,9 @@ const userSchema = z.object({
 	password: z.string(),
 	password_hash: z.string().optional(),
 	user_id: z.string().optional(),
+	phone: z.string(),
+	created_at: z.date().optional(),
+	updated_at: z.date().optional(),
 });
 
 export const userUpdateSchema = userSchema;

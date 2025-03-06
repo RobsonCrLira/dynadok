@@ -1,6 +1,6 @@
-import { RabbitMQService } from './Messages';
+import { MessageService } from './Messages';
 
-const consumer = new RabbitMQService('user_created');
+const consumer = new MessageService('user_created');
 
 consumer.connect().then(() => {
 	console.log('Consumer connected');
