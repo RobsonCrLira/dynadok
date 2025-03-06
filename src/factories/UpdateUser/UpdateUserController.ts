@@ -5,7 +5,7 @@ import { HttpRequest, HttpResponse } from "../../shared/interfaces/http";
 import { Validation } from "../../shared/interfaces/validation";
 import { IUpdateUserSchema } from "./UpdateUserValidation";
 
-export class CreateUserController implements Controller {
+export class UpdateUserController implements Controller {
 	constructor(
 		private readonly addUserUseCase: AddUserUseCase,
 		private readonly validate: Validation<IUpdateUserSchema>,
