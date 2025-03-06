@@ -1,13 +1,14 @@
 import { UserRepository } from "../../../database/interfaces/UserRepository";
+import { IUserUseCase } from "../../../shared/interfaces/userUseCase";
 import { CryptographyUseCase } from "../Cryptography/CryptographyUseCase";
 
-export class LoginUserUseCase {
+export class LoginUserUseCase implements IUserUseCase {
 	constructor(
 		private readonly userRepository: UserRepository,
 		private readonly cryptographyUseCase: CryptographyUseCase,
 	) {}
 
-	async login(data: { email: string; password: string }) {
+	async execute(data: { email: string; password: string }) {
 		const user = await this.userRepository.findByEmail(data.email);
 		if (!user) {
 			return null;

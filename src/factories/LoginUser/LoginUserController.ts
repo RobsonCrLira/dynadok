@@ -12,7 +12,7 @@ export class LoginUserController implements Controller {
 
 	async handle(httpRequest: HttpRequest): Promise<HttpResponse> {
 		try {
-			const data = await this.loginUserUseCase.login(httpRequest.body);
+			const data = await this.loginUserUseCase.execute(httpRequest.body);
 
 			if (!data) {
 				return badRequest(new Error("Invalid credentials"));

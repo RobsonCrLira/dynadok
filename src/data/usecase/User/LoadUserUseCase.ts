@@ -1,11 +1,12 @@
 import { UserRepository } from "../../../database/interfaces/UserRepository";
 import redisCache from "../../../infra/cache/redis";
+import { IUserUseCase } from "../../../shared/interfaces/userUseCase";
 
-export class LoadUserUseCase {
+export class LoadUserUseCase implements IUserUseCase {
 	cacheKey = "users:id";
 	constructor(private readonly userRepository: UserRepository) {}
 
-	async loadById(user_id: string) {
+	async execute(user_id: string) {
 		const cachedUser = await redisCache.getValue(this.cacheKey);
 
 		if (cachedUser) {

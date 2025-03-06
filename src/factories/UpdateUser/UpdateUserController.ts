@@ -1,13 +1,13 @@
-import { AddUserUseCase } from '../../data/usecase/User/AddUserUseCase';
 import { badRequest, badRequestCustom, ok, serverError } from '../../shared/http/httpHelpers';
 import { Controller } from '../../shared/interfaces/controller';
 import { HttpRequest, HttpResponse } from '../../shared/interfaces/http';
+import { IUserUseCase } from '../../shared/interfaces/userUseCase';
 import { Validation } from '../../shared/interfaces/validation';
 import { IUpdateUserSchema } from './UpdateUserValidation';
 
 export class UpdateUserController implements Controller {
 	constructor(
-		private readonly addUserUseCase: AddUserUseCase,
+		private readonly addUserUseCase: IUserUseCase,
 		private readonly validate: Validation<IUpdateUserSchema>,
 	) {}
 	async handle(httpRequest: HttpRequest): Promise<HttpResponse> {
@@ -18,7 +18,7 @@ export class UpdateUserController implements Controller {
 			if (validate instanceof Error) {
 				return badRequestCustom(validate);
 			}
-			const response = await this.addUserUseCase.add(validate);
+			const response = await this.addUserUseCase.execute(validate);
 
 			if (response instanceof Error) {
 				return badRequest(response);

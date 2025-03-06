@@ -18,7 +18,7 @@ export class SignUpController implements Controller {
 			if (validate instanceof Error) {
 				return badRequestCustom(validate);
 			}
-			const data = await this.addUserUseCase.add(validate);
+			const data = await this.addUserUseCase.execute(validate);
 
 			if (data instanceof Error) {
 				return badRequest(data);

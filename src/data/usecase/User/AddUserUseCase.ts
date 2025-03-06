@@ -1,14 +1,15 @@
 import { IUser, UserRepository } from "../../../database/interfaces/UserRepository";
 import { EmailInUseError } from "../../../shared/errors";
+import { IUserUseCase } from '../../../shared/interfaces/userUseCase';
 import { CryptographyUseCase } from "../Cryptography/CryptographyUseCase";
 
-export class AddUserUseCase {
+export class AddUserUseCase implements IUserUseCase {
 	constructor(
 		private readonly userRepository: UserRepository,
 		private readonly cryptographyUseCase: CryptographyUseCase,
 	) {}
 
-	async add(data: IUser): Promise<EmailInUseError | IUser> {
+	async execute(data: IUser): Promise<EmailInUseError | IUser> {
 		const userExists = await this.userRepository.findByEmail(data.email);
 
 		if (!userExists) {
