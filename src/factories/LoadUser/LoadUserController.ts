@@ -8,12 +8,12 @@ export class LoadUserController implements Controller {
 	async handle(httpRequest: HttpRequest): Promise<HttpResponse> {
 		try {
 			const { user_id } = httpRequest.params;
-			const response = await this.loadUser.loadById(user_id);
+			const data = await this.loadUser.loadById(user_id);
 
-			if (response instanceof Error) {
-				return badRequest(response);
+			if (data instanceof Error) {
+				return badRequest(data);
 			}
-			return ok({ message: 'Usuário Criado com sucesso!' });
+			return ok(data);
 		} catch (error) {
 			console.error(error);
 			return serverError(error);

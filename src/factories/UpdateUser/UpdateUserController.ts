@@ -23,7 +23,7 @@ export class UpdateUserController implements Controller {
 			if (response instanceof Error) {
 				return badRequest(response);
 			}
-			return ok({ message: 'Usuário Criado com sucesso!' });
+			return ok({ message: 'Usuário atualizado com sucesso!' });
 		} catch (error) {
 			console.error(error);
 			return serverError(error);

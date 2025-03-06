@@ -18,6 +18,21 @@ class RedisCache {
 	getClient(): RedisClientType {
 		return this.client;
 	}
+
+	async getValue(key: string): Promise<string | null> {
+		const reply = await this.client.get(key);
+		return reply;
+	}
+
+	async setValue(key: string, value: string, expirationInSeconds?: number): Promise<void> {
+		if (expirationInSeconds) {
+			await this.client.set(key, value, {
+				EX: expirationInSeconds,
+			});
+		} else {
+			await this.client.set(key, value);
+		}
+	}
 }
 
 const redisCache = new RedisCache();
