@@ -1,0 +1,44 @@
+{
+	"name": "template-nodejs-backend-with-typescript",
+	"version": "1.0.0",
+	"main": "./src/main/server.ts",
+	"author": "Robson Lira<robson@robsonlira.com.branter'>",
+	"license": "MIT",
+	"private": true,
+	"engines": {
+		"node": ">=20.0.0"
+	},
+	"scripts": {
+		"lint": "biome check --write --unsafe",
+		"dev": "nodemon --ignore node_modules ./src/main/server.ts",
+		"build": "rm -rf dist && tsc",
+		"start": "node ./dist/main/server.js"
+	},
+	"dependencies": {
+		"@prisma/adapter-pg": "^6.4.1",
+		"@prisma/client": "6.4.1",
+		"@types/bcryptjs": "^2.4.6",
+		"axios": "^1.8.1",
+		"bcryptjs": "^3.0.2",
+		"cors": "^2.8.5",
+		"dotenv": "^16.4.7",
+		"express": "^4.21.2",
+		"jsonwebtoken": "^9.0.2",
+		"morgan": "^1.10.0",
+		"zod": "^3.24.2"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "1.9.4",
+		"@types/cors": "^2.8.17",
+		"@types/express": "^5.0.0",
+		"@types/jsonwebtoken": "^9.0.9",
+		"@types/morgan": "^1.9.9",
+		"@types/node": "^22.13.9",
+		"globals": "^16.0.0",
+		"nodemon": "^3.1.9",
+		"prettier": "^3.5.3",
+		"prisma": "^6.4.1",
+		"ts-node": "^10.9.2",
+		"typescript": "5.8.2"
+	}
+}

@@ -1,0 +1,23 @@
+dist
+yarn.lock
+node_modules
+
+# package directories
+node_modules
+jspm_packages
+
+# Serverless directories
+.serverless
+
+# esbuild directories
+.esbuild
+.build
+.env
+report.xlsx
+yarn.lock
+data.json
+pnpm-lock.yaml
+.idea
+src/database/prisma
+!database/repositories/**/*
+./tmp

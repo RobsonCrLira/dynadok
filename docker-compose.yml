@@ -1,0 +1,37 @@
+services:
+    mongodb:
+        container_name: mongodb
+        image: mongo:latest
+        restart: always
+        ports:
+            - "27017:27017"
+        volumes:
+            - ./mongodb:/data/db
+            - ./mongo-keyfile/mongodb-keyfile:/etc/mongo/mongodb-keyfile:ro
+        environment:
+            - MONGO_INITDB_ROOT_USERNAME=mongoadmin
+            - MONGO_INITDB_ROOT_PASSWORD=mongoadmin
+            - MONGO_INITDB_DATABASE=dynadok
+        command: ["mongod", "--replSet", "rs0", "--keyFile", "/etc/mongo/mongodb-keyfile"]
+
+    redis:
+        container_name: redis
+        image: redis:latest
+        restart: always
+        ports:
+            - "6379:6379"
+
+    mongo-init-replica:
+        image: mongo:latest
+        depends_on:
+            - mongodb
+        restart: "no"
+        entrypoint: >
+            bash -c "
+            sleep 20;
+            mongosh --host mongodb:27017 --eval '
+              rs.initiate({
+                _id: \"rs0\",
+                members: [{ _id: 0, host: \"mongodb:27017\" }]
+              })
+            '"
