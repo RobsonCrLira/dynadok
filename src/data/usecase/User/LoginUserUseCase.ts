@@ -1,5 +1,5 @@
-import { UserRepository } from '../../../database/interfaces/UserRepository';
-import { CryptographyUseCase } from '../Cryptography/CryptographyUseCase';
+import { UserRepository } from "../../../database/interfaces/UserRepository";
+import { CryptographyUseCase } from "../Cryptography/CryptographyUseCase";
 
 export class LoginUserUseCase {
 	constructor(
@@ -16,7 +16,7 @@ export class LoginUserUseCase {
 		if (!isValidPassword) {
 			return null;
 		}
-		const token = await this.cryptographyUseCase.encrypt({ user_id: user.user_id, email: user.email, roles: { role_id: user.role.role_id, name: user.role.name } });
+		const token = await this.cryptographyUseCase.encrypt({ user_id: user.user_id, email: user.email });
 		return token;
 	}
 }

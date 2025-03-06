@@ -1,7 +1,7 @@
 import { prisma } from "..";
 import { IUser, IUserUpdate, UserRepository } from "../interfaces/UserRepository";
 
-export class UserPostgresRepository implements UserRepository {
+export class UserMongoDBRepository implements UserRepository {
 	private readonly prisma;
 
 	constructor() {
