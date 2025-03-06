@@ -7,8 +7,25 @@ export class UserMongoDBRepository implements UserRepository {
 	constructor() {
 		this.prisma = prisma;
 	}
+	async updatePassword(user_id: string, password_hash: string): Promise<void> {
+		await this.prisma.users.update({
+			where: {
+				user_id: user_id,
+			},
+			data: {
+				user_password_hash: password_hash,
+			},
+		});
+	}
+
 	async getAll(): Promise<IUser[]> {
-		const users = await this.prisma.users.findMany();
+		const users = await this.prisma.users.findMany({
+			select: {
+				user_id: true,
+				user_name: true,
+				user_email: true,
+			},
+		});
 		return users;
 	}
 
@@ -20,7 +37,6 @@ export class UserMongoDBRepository implements UserRepository {
 			data: {
 				user_name: data.name,
 				user_email: data.email,
-				user_password_hash: data.password_hash,
 			},
 		});
 		return update;

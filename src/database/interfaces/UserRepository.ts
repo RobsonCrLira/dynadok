@@ -19,5 +19,6 @@ export interface UserRepository {
 	findById(id: string): Promise<IUser | null>;
 	getAll(): Promise<IUser[]>;
 	update(data: IUserUpdate): Promise<IUser | null>;
+	updatePassword(user_id: string, password_hash: string): Promise<void>;
 	delete(id: string): Promise<void>;
 }
