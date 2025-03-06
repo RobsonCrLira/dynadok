@@ -1,8 +1,15 @@
-import { MessageService } from './Messages';
+import { LogMongoDBRepository } from "../../database/repositories/LogMongoDBRepository";
+import { MessageService } from "./Messages";
 
-const consumer = new MessageService('user_created');
+const consumers = [
+	{ name: "user_created", message: "User Created Consumer connected" },
+	{ name: "user_logged_in", message: "User Logged In Consumer connected" },
+];
 
-consumer.connect().then(() => {
-	console.log('Consumer connected');
-	consumer.consume();
+consumers.forEach(({ name, message }) => {
+	const consumer = new MessageService(name, new LogMongoDBRepository());
+	consumer.connect().then(() => {
+		console.log(message);
+		consumer.consume();
+	});
 });

@@ -1,19 +1,17 @@
 import { CryptographyUseCase } from '../../data/usecase/Cryptography/CryptographyUseCase';
-import { AddUserUseCase } from '../../data/usecase/User/AddUserUseCase';
+import { LoginUserUseCase } from '../../data/usecase/User/LoginUserUseCase';
 import { LogMongoDBRepository } from '../../database/repositories/LogMongoDBRepository';
 import { UserMongoDBRepository } from '../../database/repositories/UserMongoDBRepository';
 import { MessageService } from '../../infra/queue/Messages';
 import { Controller } from '../../shared/interfaces/controller';
-import { CreateUserController } from './CreateUserController';
-import { CreateUserValidation } from './CreateUserValidation';
+import { LoginUserController } from './LoginUserController';
 
-export const makeCreateUserController = (): Controller => {
+export const makeLoginUserController = (): Controller => {
 	const userMongoDBRepository = new UserMongoDBRepository();
 	const logMongoDBRepository = new LogMongoDBRepository();
 	const cryptographyUseCase = new CryptographyUseCase();
-	const addUserUseCase = new AddUserUseCase(userMongoDBRepository, cryptographyUseCase);
-	const validate = new CreateUserValidation();
-	const messages = new MessageService('user_created', logMongoDBRepository);
+	const loginUserUseCase = new LoginUserUseCase(userMongoDBRepository, cryptographyUseCase);
+	const messages = new MessageService('user_logged_in', logMongoDBRepository);
 	messages.connect();
-	return new CreateUserController(addUserUseCase, validate, messages);
+	return new LoginUserController(loginUserUseCase, messages);
 };

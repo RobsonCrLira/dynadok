@@ -1,10 +1,10 @@
-import { AddUserUseCase } from '../../data/usecase/User/AddUserUseCase';
-import { MessageService } from '../../infra/queue/Messages';
-import { badRequest, badRequestCustom, created, serverError } from '../../shared/http/httpHelpers';
-import { Controller } from '../../shared/interfaces/controller';
-import { HttpRequest, HttpResponse } from '../../shared/interfaces/http';
-import { Validation } from '../../shared/interfaces/validation';
-import { ICreateUserSchema } from './CreateUserValidation';
+import { AddUserUseCase } from "../../data/usecase/User/AddUserUseCase";
+import { MessageService } from "../../infra/queue/Messages";
+import { badRequest, badRequestCustom, created, serverError } from "../../shared/http/httpHelpers";
+import { Controller } from "../../shared/interfaces/controller";
+import { HttpRequest, HttpResponse } from "../../shared/interfaces/http";
+import { Validation } from "../../shared/interfaces/validation";
+import { ICreateUserSchema } from "./CreateUserValidation";
 
 export class CreateUserController implements Controller {
 	constructor(
@@ -19,15 +19,22 @@ export class CreateUserController implements Controller {
 			if (validate instanceof Error) {
 				return badRequestCustom(validate);
 			}
-			const response = await this.addUserUseCase.add(validate);
+			const data = await this.addUserUseCase.add(validate);
 
-			if (response instanceof Error) {
-				return badRequest(response);
+			if (data instanceof Error) {
+				return badRequest(data);
 			}
 
-			await this.messageProducer.sendMessage(JSON.stringify({ userId: response.user_id }));
+			await this.messageProducer.sendMessage(
+				JSON.stringify({
+					user: {
+						name: data.name,
+						user_id: data.user_id,
+					},
+				}),
+			);
 
-			return created({ message: 'Usuário Criado com sucesso!' });
+			return created({ message: "Usuário Criado com sucesso!" });
 		} catch (error) {
 			console.error(error);
 			return serverError(error);

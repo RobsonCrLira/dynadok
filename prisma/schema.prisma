@@ -19,8 +19,9 @@ model users {
 }
 
 model logs {
-    log_id          String   @id @default(auto()) @map("_id") @db.ObjectId
-    user_id         String
-    log_type        String
-    created_at      DateTime @default(now())
+    log_id     String   @id @default(auto()) @map("_id") @db.ObjectId
+    user_id    String
+    log_type   String
+    log_data   Json
+    created_at DateTime @default(now())
 }
