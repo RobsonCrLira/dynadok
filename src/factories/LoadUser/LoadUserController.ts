@@ -1,7 +1,7 @@
-import { LoadUserUseCase } from "../../data/usecase/User/LoadUserUseCase";
-import { badRequest, created, serverError } from "../../shared/http/httpHelpers";
-import { Controller } from "../../shared/interfaces/controller";
-import { HttpRequest, HttpResponse } from "../../shared/interfaces/http";
+import { LoadUserUseCase } from '../../data/usecase/User/LoadUserUseCase';
+import { badRequest, ok, serverError } from '../../shared/http/httpHelpers';
+import { Controller } from '../../shared/interfaces/controller';
+import { HttpRequest, HttpResponse } from '../../shared/interfaces/http';
 
 export class LoadUserController implements Controller {
 	constructor(private readonly loadUser: LoadUserUseCase) {}
@@ -13,7 +13,7 @@ export class LoadUserController implements Controller {
 			if (response instanceof Error) {
 				return badRequest(response);
 			}
-			return created({ message: "Usuário Criado com sucesso!" });
+			return ok({ message: 'Usuário Criado com sucesso!' });
 		} catch (error) {
 			console.error(error);
 			return serverError(error);

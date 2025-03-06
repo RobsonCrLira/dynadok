@@ -1,6 +1,6 @@
-import { Request, Response } from "express";
-import { Controller } from "../../shared/interfaces/controller";
-import { HttpRequest } from "../../shared/interfaces/http";
+import { Request, Response } from 'express';
+import { Controller } from '../../shared/interfaces/controller';
+import { HttpRequest } from '../../shared/interfaces/http';
 
 export const adaptRoute = (controller: Controller) => {
 	return async (req: Request, res: Response) => {

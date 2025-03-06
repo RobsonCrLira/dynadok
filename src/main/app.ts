@@ -1,10 +1,10 @@
-import cors from "cors";
-import express from "express";
-import logger from "morgan";
-import routes from "../routes/router";
-import { appConfig } from "../config/env";
+import cors from 'cors';
+import express from 'express';
+import logger from 'morgan';
+import { appConfig } from '../config/env';
+import routes from '../routes/router';
 
-const env = appConfig.env === "dev" ? "dev" : "";
+const env = appConfig.env === 'dev' ? 'dev' : '';
 
 class App {
 	private readonly server: express.Application;
@@ -16,7 +16,7 @@ class App {
 	}
 
 	private initializeMiddlewares() {
-		this.server.use(cors({ origin: "*" }));
+		this.server.use(cors({ origin: '*' }));
 		this.server.use(express.json());
 		this.server.use(logger(env));
 	}

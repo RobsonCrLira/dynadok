@@ -1,7 +1,7 @@
-import { LoadUserUseCase } from "../../data/usecase/User/LoadUserUseCase";
-import { UserMongoDBRepository } from "../../database/repositories/UserMongoDBRepository";
-import { Controller } from "../../shared/interfaces/controller";
-import { LoadUserController } from "./LoadUserController";
+import { LoadUserUseCase } from '../../data/usecase/User/LoadUserUseCase';
+import { UserMongoDBRepository } from '../../database/repositories/UserMongoDBRepository';
+import { Controller } from '../../shared/interfaces/controller';
+import { LoadUserController } from './LoadUserController';
 
 export const makeLoadUserController = (): Controller => {
 	const userMongoDBRepository = new UserMongoDBRepository();

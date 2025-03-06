@@ -1,6 +1,6 @@
-import { IUser, UserRepository } from "../../../database/interfaces/UserRepository";
-import { EmailInUseError } from "../../../shared/errors";
-import { CryptographyUseCase } from "../Cryptography/CryptographyUseCase";
+import { IUser, UserRepository } from '../../../database/interfaces/UserRepository';
+import { EmailInUseError } from '../../../shared/errors';
+import { CryptographyUseCase } from '../Cryptography/CryptographyUseCase';
 
 export class AddUserUseCase {
 	constructor(

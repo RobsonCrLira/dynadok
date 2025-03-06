@@ -1,9 +1,9 @@
-import { AddUserUseCase } from "../../data/usecase/User/AddUserUseCase";
-import { badRequest, badRequestCustom, created, serverError } from "../../shared/http/httpHelpers";
-import { Controller } from "../../shared/interfaces/controller";
-import { HttpRequest, HttpResponse } from "../../shared/interfaces/http";
-import { Validation } from "../../shared/interfaces/validation";
-import { IUpdateUserSchema } from "./UpdateUserValidation";
+import { AddUserUseCase } from '../../data/usecase/User/AddUserUseCase';
+import { badRequest, badRequestCustom, ok, serverError } from '../../shared/http/httpHelpers';
+import { Controller } from '../../shared/interfaces/controller';
+import { HttpRequest, HttpResponse } from '../../shared/interfaces/http';
+import { Validation } from '../../shared/interfaces/validation';
+import { IUpdateUserSchema } from './UpdateUserValidation';
 
 export class UpdateUserController implements Controller {
 	constructor(
@@ -23,7 +23,7 @@ export class UpdateUserController implements Controller {
 			if (response instanceof Error) {
 				return badRequest(response);
 			}
-			return created({ message: "Usuário Criado com sucesso!" });
+			return ok({ message: 'Usuário Criado com sucesso!' });
 		} catch (error) {
 			console.error(error);
 			return serverError(error);

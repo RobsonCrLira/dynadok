@@ -1,28 +1,27 @@
-import { z } from "zod";
-import { ValidateError } from "../../shared/errors/validateError";
-import { Validation } from "../../shared/interfaces/validation";
+import { z } from 'zod';
+import { ValidateError } from '../../shared/errors/validateError';
+import { Validation } from '../../shared/interfaces/validation';
 
 const passwordSchema = z
 	.string()
 	.regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d@$!%*?&#]{8,}/g, {
-		message: "Senha deve conter ao menos 1 letra maiúscula, 1 letra minúscula e 1 número!",
+		message: 'Senha deve conter ao menos 1 letra maiúscula, 1 letra minúscula e 1 número!',
 	})
-	.min(8, { message: "Senha deve conter ao menos 8 caracteres!" })
+	.min(8, { message: 'Senha deve conter ao menos 8 caracteres!' })
 	.max(20);
 
 const schema = z
 	.object({
-		name: z.string({ message: "Informe seu nome" }).min(3).max(255),
-		email: z.string({ message: "Informe seu email" }).email(),
+		name: z.string({ message: 'Informe seu nome' }).min(3).max(255),
+		email: z.string({ message: 'Informe seu email' }).email(),
 		phone: z.string().regex(/^\(\d{2}\)\d{5}-\d{4}$/g, {
-			message: "Telefone inválido (99)99999-9999",
+			message: 'Telefone inválido (99)99999-9999',
 		}),
 		password: passwordSchema,
 		password_confirmation: passwordSchema,
-		
 	})
 	.refine((data) => data.password === data.password_confirmation, {
-		message: "As senhas não conferem",
+		message: 'As senhas não conferem',
 	})
 	.transform((data) => ({
 		...data,
@@ -49,7 +48,7 @@ export class SignUpValidation implements Validation<ISignUpSchema> {
 				return SignUpValidation.handleValidationError(error);
 			}
 			console.error(error);
-			return new ValidateError([{ message: error, field: ["signup"] }]);
+			return new ValidateError([{ message: error, field: ['signup'] }]);
 		}
 	}
 }

@@ -1,5 +1,5 @@
-import { UserRepository } from "../../../database/interfaces/UserRepository";
-import { CryptographyUseCase } from "../Cryptography/CryptographyUseCase";
+import { UserRepository } from '../../../database/interfaces/UserRepository';
+import { CryptographyUseCase } from '../Cryptography/CryptographyUseCase';
 
 export class LoginUserUseCase {
 	constructor(

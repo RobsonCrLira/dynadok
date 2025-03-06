@@ -1,5 +1,5 @@
-import "dotenv/config";
-import z from "zod";
+import 'dotenv/config';
+import z from 'zod';
 
 const timeUnits = {
 	m: 60,
@@ -13,7 +13,9 @@ const EnvConfigSchema = z.object({
 		message: "EXPIRES_IN must be a valid time format (e.g., '10m', '2h', '1d')",
 	}),
 	PORT: z.coerce.number().min(1024).max(65535).default(9000),
-	NODE_ENV: z.enum(["dev", "prod"]).default("dev"), // NODE_ENV=dev or NODE_ENV=prod
+	NODE_ENV: z.enum(['dev', 'prod']).default('dev'), // NODE_ENV=dev or NODE_ENV=prod
+	REDIS_URL: z.string(),
+	RABBITMQ_URL: z.string(),
 });
 
 export type EnvConfigSchema = z.infer<typeof EnvConfigSchema>;
