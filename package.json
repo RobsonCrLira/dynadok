@@ -1,5 +1,6 @@
 {
-	"name": "template-nodejs-backend-with-typescript",
+	"name": "API REST - Node.js",
+	"description": "API REST com Node.js",
 	"version": "1.0.0",
 	"main": "./src/main/server.ts",
 	"author": "Robson Lira<robson@robsonlira.com.branter'>",
@@ -27,6 +28,8 @@
 		"jsonwebtoken": "^9.0.2",
 		"morgan": "^1.10.0",
 		"redis": "^4.7.0",
+		"swagger-jsdoc": "^6.2.8",
+		"swagger-ui-express": "^5.0.1",
 		"zod": "^3.24.2"
 	},
 	"devDependencies": {
@@ -37,6 +40,8 @@
 		"@types/jsonwebtoken": "^9.0.9",
 		"@types/morgan": "^1.9.9",
 		"@types/node": "^22.13.9",
+		"@types/swagger-jsdoc": "^6.0.4",
+		"@types/swagger-ui-express": "^4.1.8",
 		"globals": "^16.0.0",
 		"nodemon": "^3.1.9",
 		"prettier": "^3.5.3",

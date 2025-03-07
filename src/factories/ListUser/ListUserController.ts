@@ -7,7 +7,7 @@ export class ListUserController implements Controller {
 	constructor(private readonly listUser: ListUserUseCase) {}
 	async handle(_httpRequest: HttpRequest): Promise<HttpResponse> {
 		try {
-			const data = await this.listUser.listAll();
+			const data = await this.listUser.execute();
 
 			if (data instanceof Error) {
 				return badRequest(data);
